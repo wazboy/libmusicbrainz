@@ -73,7 +73,7 @@ namespace MusicBrainz5
 			if (Node.getText())
 				os << (const char *)Node.getText();
 
-			os >> RetVal;
+			os >> std::boolalpha >> RetVal;
 			if (os.fail())
 			{
 #ifdef _MB5_DEBUG_
@@ -91,7 +91,7 @@ namespace MusicBrainz5
 			std::stringstream os;
 			os << Text;
 
-			os >> RetVal;
+			os >> std::boolalpha >> RetVal;
 			if (os.fail())
 			{
 #ifdef _MB5_DEBUG_
