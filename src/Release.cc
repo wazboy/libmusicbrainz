@@ -167,6 +167,9 @@ void MusicBrainz5::CRelease::Cleanup()
 
 	delete m_d->m_RelationListList;
 	m_d->m_RelationListList=0;
+
+	delete m_d->m_CollectionList;
+	m_d->m_CollectionList=0;
 }
 
 MusicBrainz5::CRelease *MusicBrainz5::CRelease::Clone()
