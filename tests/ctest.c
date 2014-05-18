@@ -41,13 +41,16 @@ void PrintRelationList(Mb5RelationList RelationList)
 	{
 		char Target[256];
 		char Type[256];
+		char TypeID[256];
 
 		Mb5Relation Relation=mb5_relation_list_item(RelationList,count);
 
 		mb5_relation_get_target(Relation,Target,sizeof(Target));
 		mb5_relation_get_type(Relation,Type,sizeof(Type));
+		mb5_relation_get_typeid(Relation,TypeID,sizeof(Type));
 
-		printf("Relation: %d - Type '%s', Target '%s'\n",count,Type,Target);
+		printf("Relation: %d - Type '%s', Target '%s', Type-ID '%s'\n",
+			count,Type,Target,TypeID);
 	}
 }
 

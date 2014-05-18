@@ -60,7 +60,10 @@ void PrintRelationList(MusicBrainz5::CRelationList *RelationList)
 	for (int count=0;count<RelationList->NumItems();count++)
 	{
 		MusicBrainz5::CRelation *Relation=RelationList->Item(count);
-		std::cout << "Relation: " << count << " - Type '" << Relation->Type() << "', Target '" << Relation->Target() << "'" << std::endl;
+		std::cout << "Relation: " << count <<
+			" - Type '" << Relation->Type() <<
+			"', Target '" << Relation->Target() <<
+			"', Type-ID '" << Relation->TypeID() << "'" << std::endl;
 	}
 }
 

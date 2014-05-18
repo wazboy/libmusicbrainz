@@ -52,6 +52,7 @@ class MusicBrainz5::CRelationPrivate
 		}
 
 		std::string m_Type;
+		std::string m_TypeID;
 		std::string m_Target;
 		std::string m_Direction;
 		CAttributeList *m_AttributeList;
@@ -94,6 +95,7 @@ MusicBrainz5::CRelation& MusicBrainz5::CRelation::operator =(const CRelation& Ot
 		CEntity::operator =(Other);
 
 		m_d->m_Type=Other.m_d->m_Type;
+		m_d->m_TypeID=Other.m_d->m_TypeID;
 		m_d->m_Target=Other.m_d->m_Target;
 		m_d->m_Direction=Other.m_d->m_Direction;
 
@@ -166,6 +168,8 @@ void MusicBrainz5::CRelation::ParseAttribute(const std::string& Name, const std:
 {
 	if ("type"==Name)
 		m_d->m_Type=Value;
+	else if ("type-id"==Name)
+		m_d->m_TypeID=Value;
 	else
 	{
 #ifdef _MB5_DEBUG_
@@ -242,6 +246,11 @@ std::string MusicBrainz5::CRelation::GetElementName()
 std::string MusicBrainz5::CRelation::Type() const
 {
 	return m_d->m_Type;
+}
+
+std::string MusicBrainz5::CRelation::TypeID() const
+{
+	return m_d->m_TypeID;
 }
 
 std::string MusicBrainz5::CRelation::Target() const
