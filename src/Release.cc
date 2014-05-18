@@ -41,6 +41,7 @@
 #include "musicbrainz5/Relation.h"
 #include "musicbrainz5/MediumList.h"
 #include "musicbrainz5/Medium.h"
+#include "musicbrainz5/CoverArtArchive.h"
 #include "musicbrainz5/Collection.h"
 #include "musicbrainz5/CollectionList.h"
 
@@ -54,6 +55,7 @@ class MusicBrainz5::CReleasePrivate
 			m_LabelInfoList(0),
 			m_MediumList(0),
 			m_RelationListList(0),
+			m_CoverArtArchive(0),
 			m_CollectionList(0)
 		{
 		}
@@ -74,6 +76,7 @@ class MusicBrainz5::CReleasePrivate
 		CLabelInfoList *m_LabelInfoList;
 		CMediumList *m_MediumList;
 		CRelationListList *m_RelationListList;
+		CCoverArtArchive *m_CoverArtArchive;
 		CCollectionList *m_CollectionList;
 };
 
@@ -134,6 +137,8 @@ MusicBrainz5::CRelease& MusicBrainz5::CRelease::operator =(const CRelease& Other
 		if (Other.m_d->m_RelationListList)
 			m_d->m_RelationListList=new CRelationListList(*Other.m_d->m_RelationListList);
 
+		if (Other.m_d->m_CoverArtArchive)
+			m_d->m_CoverArtArchive=new CCoverArtArchive(*Other.m_d->m_CoverArtArchive);
 		if (Other.m_d->m_CollectionList)
 			m_d->m_CollectionList=new CCollectionList(*Other.m_d->m_CollectionList);
 	}
@@ -170,6 +175,9 @@ void MusicBrainz5::CRelease::Cleanup()
 
 	delete m_d->m_CollectionList;
 	m_d->m_CollectionList=0;
+
+	delete m_d->m_CoverArtArchive;
+	m_d->m_CoverArtArchive=0;
 }
 
 MusicBrainz5::CRelease *MusicBrainz5::CRelease::Clone()
@@ -252,6 +260,10 @@ void MusicBrainz5::CRelease::ParseElement(const XMLNode& Node)
 	else if ("relation-list"==NodeName)
 	{
 		ProcessRelationList(Node,m_d->m_RelationListList);
+	}
+	else if ("cover-art-archive"==NodeName)
+	{
+		ProcessItem(Node,m_d->m_CoverArtArchive);
 	}
 	else if ("collection-list"==NodeName)
 	{
@@ -350,6 +362,11 @@ MusicBrainz5::CRelationListList *MusicBrainz5::CRelease::RelationListList() cons
 	return m_d->m_RelationListList;
 }
 
+MusicBrainz5::CCoverArtArchive *MusicBrainz5::CRelease::CoverArtArchive() const
+{
+	return m_d->m_CoverArtArchive;
+}
+
 MusicBrainz5::CCollectionList *MusicBrainz5::CRelease::CollectionList() const
 {
 	return m_d->m_CollectionList;
@@ -408,6 +425,9 @@ std::ostream& MusicBrainz5::CRelease::Serialise(std::ostream& os) const
 
 	if (RelationListList())
 		os << *RelationListList() << std::endl;
+
+	if (CoverArtArchive())
+		os << *CoverArtArchive() << std::endl;
 
 	if (CollectionList())
 		os << *CollectionList() << std::endl;

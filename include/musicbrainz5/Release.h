@@ -30,6 +30,7 @@
 #include "musicbrainz5/LabelInfoList.h"
 #include "musicbrainz5/RelationList.h"
 #include "musicbrainz5/MediumList.h"
+#include "musicbrainz5/CoverArtArchive.h"
 #include "musicbrainz5/CollectionList.h"
 
 #include "musicbrainz5/xmlParser.h"
@@ -72,6 +73,7 @@ namespace MusicBrainz5
 		CLabelInfoList *LabelInfoList() const;
 		CMediumList *MediumList() const;
 		CRelationListList *RelationListList() const;
+		CCoverArtArchive *CoverArtArchive() const;
 		CCollectionList *CollectionList() const;
 
 		CMediumList MediaMatchingDiscID(const std::string& DiscID) const;
