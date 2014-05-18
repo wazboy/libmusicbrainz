@@ -180,6 +180,7 @@ int main(int argc, const char *argv[])
 							MusicBrainz5::CTrack *Track=TrackList->Item(track);
 							if (Track)
 							{
+								std::cout << "Id: " << Track->ID() << std::endl;
 								std::cout << "Position: " << Track->Position() << std::endl;
 								std::cout << "Title: " << Track->Title() << std::endl;
 								std::cout << "Length: " << Track->Length() << std::endl;
