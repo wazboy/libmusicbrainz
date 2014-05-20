@@ -45,6 +45,7 @@ namespace MusicBrainz5
 	class CTextRepresentation;
 	class CArtistCredit;
 	class CReleaseGroup;
+	class CReleaseEventList;
 	class CMedium;
 
 	class CRelease: public CEntity
@@ -66,6 +67,7 @@ namespace MusicBrainz5
 		CTextRepresentation *TextRepresentation() const;
 		CArtistCredit *ArtistCredit() const;
 		CReleaseGroup *ReleaseGroup() const;
+		CReleaseEventList *ReleaseEventList() const;
 		std::string Date() const;
 		std::string Country() const;
 		std::string Barcode() const;
