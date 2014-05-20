@@ -31,6 +31,8 @@
 
 #include "musicbrainz5/Entity.h"
 #include "musicbrainz5/IPIList.h"
+#include "musicbrainz5/Area.h"
+#include "musicbrainz5/BeginArea.h"
 #include "musicbrainz5/ReleaseList.h"
 #include "musicbrainz5/AliasList.h"
 #include "musicbrainz5/RecordingList.h"
@@ -68,6 +70,8 @@ namespace MusicBrainz5
 		std::string Country() const;
 		std::string Disambiguation() const;
 		CIPIList *IPIList() const;
+		CArea *Area() const;
+		CBeginArea *BeginArea() const;
 		CLifespan *Lifespan() const;
 		CAliasList *AliasList() const;
 		CRecordingList *RecordingList() const;

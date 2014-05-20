@@ -30,6 +30,8 @@
 
 #include "musicbrainz5/Lifespan.h"
 #include "musicbrainz5/IPI.h"
+#include "musicbrainz5/Area.h"
+#include "musicbrainz5/BeginArea.h"
 #include "musicbrainz5/Rating.h"
 #include "musicbrainz5/UserRating.h"
 #include "musicbrainz5/AliasList.h"
@@ -57,6 +59,8 @@ class MusicBrainz5::CArtistPrivate
 	public:
 		CArtistPrivate()
 		:	m_IPIList(0),
+			m_Area(0),
+			m_BeginArea(0),
 			m_Lifespan(0),
 			m_AliasList(0),
 			m_RecordingList(0),
@@ -80,6 +84,8 @@ class MusicBrainz5::CArtistPrivate
 		std::string m_Country;
 		std::string m_Disambiguation;
 		CIPIList *m_IPIList;
+		CArea *m_Area;
+		CBeginArea *m_BeginArea;
 		CLifespan *m_Lifespan;
 		CAliasList *m_AliasList;
 		CRecordingList *m_RecordingList;
@@ -132,6 +138,12 @@ MusicBrainz5::CArtist& MusicBrainz5::CArtist::operator =(const CArtist& Other)
 		if (Other.m_d->m_IPIList)
 			m_d->m_IPIList=new CIPIList(*Other.m_d->m_IPIList);
 
+		if (Other.m_d->m_Area)
+			m_d->m_Area=new CArea(*Other.m_d->m_Area);
+
+		if (Other.m_d->m_BeginArea)
+			m_d->m_BeginArea=new CBeginArea(*Other.m_d->m_BeginArea);
+
 		if (Other.m_d->m_Lifespan)
 			m_d->m_Lifespan=new CLifespan(*Other.m_d->m_Lifespan);
 
@@ -183,6 +195,12 @@ void MusicBrainz5::CArtist::Cleanup()
 {
 	delete m_d->m_IPIList;
 	m_d->m_IPIList=0;
+
+	delete m_d->m_Area;
+	m_d->m_Area=0;
+
+	delete m_d->m_BeginArea;
+	m_d->m_BeginArea=0;
 
 	delete m_d->m_Lifespan;
 	m_d->m_Lifespan=0;
@@ -271,6 +289,14 @@ void MusicBrainz5::CArtist::ParseElement(const XMLNode& Node)
 	else if ("ipi-list"==NodeName)
 	{
 		ProcessItem(Node,m_d->m_IPIList);
+	}
+	else if ("area"==NodeName)
+	{
+		ProcessItem(Node,m_d->m_Area);
+	}
+	else if ("begin-area"==NodeName)
+	{
+		ProcessItem(Node,m_d->m_BeginArea);
 	}
 	else if ("life-span"==NodeName)
 	{
@@ -373,6 +399,16 @@ MusicBrainz5::CIPIList *MusicBrainz5::CArtist::IPIList() const
 	return m_d->m_IPIList;
 }
 
+MusicBrainz5::CArea *MusicBrainz5::CArtist::Area() const
+{
+	return m_d->m_Area;
+}
+
+MusicBrainz5::CBeginArea *MusicBrainz5::CArtist::BeginArea() const
+{
+	return m_d->m_BeginArea;
+}
+
 MusicBrainz5::CLifespan *MusicBrainz5::CArtist::Lifespan() const
 {
 	return m_d->m_Lifespan;
@@ -449,6 +485,12 @@ std::ostream& MusicBrainz5::CArtist::Serialise(std::ostream& os) const
 
 	if (IPIList())
 		os << *IPIList() << std::endl;
+
+	if (Area())
+		os << *Area() << std::endl;
+
+	if (BeginArea())
+		os << *BeginArea() << std::endl;
 
 	if (Lifespan())
 		os << *Lifespan() << std::endl;
